@@ -1,0 +1,8 @@
+services:
+  flask-app:
+    container_name: flask-app
+    build: ./python-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - "./python-app/.env"
