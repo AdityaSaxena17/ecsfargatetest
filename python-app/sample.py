@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request
+import boto3
 
+s3 = boto3.client("s3")
 app = Flask(__name__)
 
 APP_NAME = os.getenv("APP_NAME", "DefaultApp")
@@ -12,6 +14,13 @@ def log_request():
 
 @app.route("/")
 def hello():
+
+    s3.put_object(
+        Bucket="your-temp-ml-bucket",
+        Key="test.txt",
+        Body="hello"
+    )
+
     print(f"HELLO WORLD!!!!! {APP_NAME} AND {ENVIRONMENT}")
     return f"Hello from {APP_NAME} running in {ENVIRONMENT}"
 
